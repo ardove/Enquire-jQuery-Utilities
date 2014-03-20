@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<style>
+			body 	 {width:100%;}
+			.menu	 {display:block; width:100%; border:1px solid #073873;}
+			.menu li {display:inline-block; padding:0.5em; border-right:1px solid #073873;}
+			.menu li.first {border-left:1px solid #073873;}
+			#menuActivator {display:none;}
+			@media screen and (max-width:1024px){
+				#menuActivator {display:block;}
+				.menu {background-color:#FFF;padding:0;margin:0;list-style-type: none;}
+				.menu li {width:40%;background-color:#FFF;border-right:none;}
+				.menu li.first,
+				.menu li.second {border-left:none;border-right:1px solid #073873;}
+			}
+		</style>
+	</head>
+	<body>
+		<a id="menuActivator" href="#menu">Menu</a>
+		<ul id="menu" class="menu">
+			<li class="first">Tab 1</li>
+			<li>Tab 2</li>
+			<li class="second">Tab 3</li>
+			<li>Tab 4</li>
+		</ul>
+		<p>Here is some content that comes after the menu</p>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="../src/enquire.js"></script>
+		<script type="text/javascript" src="../src/flyout.js"></script>
+		<script type="text/javascript">
+			var flyout = null,
+				mediaQuery = "screen and (max-width:1024px)", 
+				mediaQueryHandler = {
+					deferSetup : true,
+					setup : function(){
+						flyout = new adove.Flyout({
+							activator:'#menuActivator', 
+							content:'#menu'
+						});
+					},
+					match : function(){
+						flyout.match();
+					},
+					unmatch : function(){
+						flyout.unmatch();
+					},
+					destroy : function(){
+						flyout.destroy();
+					}
+				};
+
+			$(function(){
+				enquire.register(mediaQuery,mediaQueryHandler);
+			});
+		</script>
+	</body>
+</html>
