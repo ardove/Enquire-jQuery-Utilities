@@ -2,56 +2,75 @@
 	<head>
 		<style>
 			body 	 {width:100%;}
-			.menu	 {display:block; width:100%; border:1px solid #073873;}
+			p 	 {margin:1em;}
+
+			#container {width:1024px; height:100%; margin:0 auto; border-left:1px solid #073873; border-right:1px solid #073873;}
+			.header {height:150px; border-top:1px solid #073873;}
+			ul.menu {padding:0;}
+			#menuActivator {margin:1em 1em 0.2em 1em;}
+			.menu	 {position:relative; display:block; width:100%; border-top:1px solid #073873;border-bottom:1px solid #073873;}
 			.menu li {display:inline-block; padding:0.5em; border-right:1px solid #073873;}
-			.menu li.first {border-left:1px solid #073873;}
+			.menu li.first {margin-left:4em;}
+			.menu li.firstCol {border-left:1px solid #073873;}
 			#menuActivator {display:none;}
+			.cleaner {clear:both;}
 			@media screen and (max-width:1024px){
 				#menuActivator {display:block;}
-				.menu {background-color:#FFF;padding:0;margin:0;list-style-type: none;}
+				#container {width:100%; border:none;}
+				.header {height:0; border-top:none;}
+				.menu {position:absolute; background-color:#FFF;padding:0;margin:0 0 0 0.6em;list-style-type: none;width:50%;border-left:1px solid #073873;border-right:1px solid #073873;}
 				.menu li {width:40%;background-color:#FFF;border-right:none;}
-				.menu li.first,
-				.menu li.second {border-left:none;border-right:1px solid #073873;}
+				.menu li.firstCol {margin-left:0;border-left:none;border-right:1px solid #073873;}
+				.menu li.firstRow {margin-bottom:1px solid #073873;}
 			}
 		</style>
 	</head>
 	<body>
-		<a id="menuActivator" href="#menu">Menu</a>
-		<ul id="menu" class="menu">
-			<li class="first">Tab 1</li>
-			<li>Tab 2</li>
-			<li class="second">Tab 3</li>
-			<li>Tab 4</li>
-		</ul>
-		<p>Here is some content that comes after the menu</p>
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-		<script type="text/javascript" src="../src/enquire.js"></script>
-		<script type="text/javascript" src="../src/flyout.js"></script>
-		<script type="text/javascript">
-			var flyout = null,
-				mediaQuery = "screen and (max-width:1024px)", 
-				mediaQueryHandler = {
-					deferSetup : true,
-					setup : function(){
-						flyout = new adove.Flyout({
-							activator:'#menuActivator', 
-							content:'#menu'
-						});
-					},
-					match : function(){
-						flyout.match();
-					},
-					unmatch : function(){
-						flyout.unmatch();
-					},
-					destroy : function(){
-						flyout.destroy();
-					}
-				};
+		<div id="container">
+			<div class="header">
 
-			$(function(){
-				enquire.register(mediaQuery,mediaQueryHandler);
-			});
-		</script>
+				<div class="cleaner"></div>
+			</div>
+			<a id="menuActivator" href="#menu">Menu</a>
+			<ul id="menu" class="menu">
+				<li class="first firstCol firstRow">Tab 1</li>
+				<li class="firstRow">Tab 2</li>
+				<li class="firstCol">Tab 3</li>
+				<li>Tab 4</li>
+			</ul>
+			<p>Here is some content that comes after the menu</p>
+			<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+			<script type="text/javascript" src="../src/enquire.js"></script>
+			<script type="text/javascript" src="../src/flyout.js"></script>
+			<script type="text/javascript">
+				(function(a){
+					var flyout = null,
+						mediaQuery = "screen and (max-width:1024px)", 
+						mediaQueryHandler = {
+							deferSetup : true,
+							setup : function(){
+								flyout = new a.Flyout({
+									activator:'#menuActivator', 
+									content:'#menu'
+								});
+							},
+							match : function(){
+								flyout.match();
+							},
+							unmatch : function(){
+								flyout.unmatch();
+							},
+							destroy : function(){
+								flyout.destroy();
+							}
+						};
+
+					$(function(){
+						enquire.register(mediaQuery,mediaQueryHandler);
+					});
+				}(adove));
+			</script>
+			<div class="cleaner"></div>
+		</div>
 	</body>
 </html>
